@@ -19,14 +19,6 @@ fi
 
 
 # determine system
-if ([ "$osname" = "ubuntu" ] && [ "$fullrelno" = "22.04.3" ]) || ([ "$osname" = "debian" ] && [ $relno -ge 10 ]); then
-  echo $fullrel
-else
- echo $fullrel
- echo -ne "${RED}Only Ubuntu release 22.04 and Debian 10 and later, are supported\n"
- echo -ne "Your system does not appear to be supported${NC}\n"
- exit 1
-fi
 
 if [ $EUID -eq 0 ]; then
   echo -ne "${RED}Do NOT run this script as root. Exiting.${NC}\n"
@@ -40,7 +32,7 @@ if [ $EUID -eq 0 ]; then
 fi
 
 #Username
-echo -ne "Enter your created username if you havent done this please do it now, use ctrl+c to cancel this script and do it${NC}: "
+echo -ne "Enter your created username if you haven't done this please do it now, use ctrl+c to cancel this script and do it${NC}: "
 read username
 
 while [[ ${domain} != *[.]*[.]* ]]
@@ -49,7 +41,7 @@ echo -ne "${YELLOW}Enter the main domain setup ie rmm.yourdomain.com ${NC}: "
 read domain
 done
 
-echo -ne "${YELLOW}Enter the letsencrypt domain (if using txt acme e.g. example.com) or the frontend (as above) (if using certbot dns e.g. rmm.example.com)${NC}: "
+echo -ne "${YELLOW}Enter the lets-encrypt domain (if using txt acme e.g. example.com) or the frontend (as above) (if using certbot dns e.g. rmm.example.com)${NC}: "
 read certdomain
 
 admintoken=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 70 | head -n 1)
@@ -63,7 +55,7 @@ sudo -u postgres psql tacticalrmm -c "GRANT USAGE ON SCHEMA public to dbreader;"
 sudo -u postgres psql tacticalrmm -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO dbreader;"
 sudo -u postgres psql tacticalrmm -c "ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO dbreader;"
 
-# create a firewall rule for the Grafana website (default port is 3000)
+# Create a firewall rule for the Grafana website (default port is 3000)
 sudo ufw allow 3000/tcp
 sudo ufw reload
 
@@ -73,7 +65,7 @@ sudo apt-get install -y apt-transport-https
 sudo apt-get install -y software-properties-common wget
 wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
 
-# add the repository for the latest stable OSS release
+# Add the repository for the latest stable OSS release
 echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 
 sudo apt-get update
@@ -88,10 +80,10 @@ dbconf="$(cat << EOF
 ## config file version
 apiVersion: 1
 
-## list of datasources that should be deleted from the database
+## List of datasources that should be deleted from the database
 deleteDatasources:
 
-## list of datasources to insert/update depending
+## List of datasources to insert/update depending
 datasources:
 - name: TacticalRMM
   type: postgres

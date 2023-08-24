@@ -1,22 +1,6 @@
 #!/bin/bash
 
 #### Just scripted up to work from @Yasd and @sebcashmag on Discord forum
-
-
-#check if running on ubuntu 20.04, Debian or Raspbian
-osname=$(lsb_release -si); osname=${osname^}
-osname=$(echo "$osname" | tr  '[A-Z]' '[a-z]')
-fullrel=$(lsb_release -sd)
-codename=$(lsb_release -sc)
-relno=$(lsb_release -sr | cut -d. -f1)
-
-# Fallback if lsb_release -si returns anything else than Ubuntu, Debian or Raspbian
-if [ ! "$osname" = "ubuntu" ] && [ ! "$osname" = "debian" ]; then
-  osname=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
-  osname=${osname^}
-fi
-
-
 # determine system
 
 if [ $EUID -eq 0 ]; then

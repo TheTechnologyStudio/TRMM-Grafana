@@ -19,7 +19,7 @@ fi
 
 
 # determine system
-if ([ "$osname" = "ubuntu" ] && [ "$fullrelno" = "22.04.3" ]) || ([ "$osname" = "debian" ] && [ $relno -ge 10 ]); then
+if ([ "$osname" = "ubuntu" ] && [ "$fullrelno" = "22.04" ]) || ([ "$osname" = "debian" ] && [ $relno -ge 10 ]); then
   echo $fullrel
 else
  echo $fullrel

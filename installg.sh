@@ -9,7 +9,6 @@ osname=$(echo "$osname" | tr  '[A-Z]' '[a-z]')
 fullrel=$(lsb_release -sd)
 codename=$(lsb_release -sc)
 relno=$(lsb_release -sr | cut -d. -f1)
-fullrelno=$(lsb_release -sr)
 
 # Fallback if lsb_release -si returns anything else than Ubuntu, Debian or Raspbian
 if [ ! "$osname" = "ubuntu" ] && [ ! "$osname" = "debian" ]; then
